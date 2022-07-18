@@ -25,7 +25,6 @@ config :logger, level: :info
 # to the previous section and set your `:url` port to 443:
 #
     config :zombie_apocalypse_survival, ZombieApocalypseSurvivalWeb.Endpoint,
-      ...,
       url: [scheme: "https", host: "floating-spire-31322.herokuapp.com", port: 443]
       # https: [
       #   ...,
