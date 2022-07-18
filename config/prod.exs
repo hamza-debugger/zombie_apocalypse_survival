@@ -14,7 +14,6 @@ config :zombie_apocalypse_survival, ZombieApocalypseSurvivalWeb.Endpoint, cache_
 # Do not print debug messages in production
 config :logger, level: :info
 
-
 url: [scheme: "https", host: "floating-spire-31322.herokuapp.com", port: 443],
 force_ssl: [rewrite_on: [:x_forwarded_proto]],
 
