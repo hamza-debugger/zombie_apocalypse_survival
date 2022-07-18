@@ -29,7 +29,7 @@ if config_env() == :prod do
       """
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
-x
+
   config :zombie_apocalypse_survival, ZombieApocalypseSurvival.Repo,
      ssl: true,
     url: database_url,
