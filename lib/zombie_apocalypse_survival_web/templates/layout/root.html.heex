@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "ZombieApocalypseSurvival", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <a href="https://en.wikipedia.org/wiki/Zombie" class="phx-logo">
+          <img src={Routes.static_path(@conn, "/images/zombies_5.gif")} alt="Zombie_Apocalypse_Survival"/>
+        </a>
+        <h1 style="color:#497562; font-size:85px ; font-weight:bold"  class="phx-text"> Zombie's Arena</h1>
+      </section>
+
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>

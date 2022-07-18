@@ -1,0 +1,74 @@
+<h1>Survivor Resources</h1>
+<%= form_for @changeset, @action, fn f -> %>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap: 5%">
+      <table>
+         <tr>
+           <th> Current Survivor Resource</th>
+         </tr>
+          <tr>
+            <th>Resource Type</th>
+            <th>Quantity</th>
+            <th>Total Points</th>
+          </tr>
+
+          <%= for resource <- @current_survivor.resource do %>
+            <tr>
+              <td><%= resource.resource_type %></td>
+              <td><%= resource.quantity%></td>
+              <td><%= resource.total_points%></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td>
+              <%= label f, :to_exchange_resource %>
+              <%= select f, :to_exchange_resource, ["Fiji Water": "fiji_water", "Campbell Soup": "campbell_soup", "First Aid Pouch": "first_aid_pouch", "AK47": "ak47"] %>
+              <%= error_tag f, :to_exchange_resource %>
+            </td>
+            <td>
+              <%= label f, :to_exchange_quantity %>
+              <%= number_input f, :to_exchange_quantity, min: 0, max: 50, value: 0  %>
+              <%= error_tag f, :to_exchange_quantity %>
+            </td>
+          </tr>
+      </table>
+
+      <table>
+          <tr>
+           <th> Opted Survivor Resource</th>
+         </tr>
+          <tr>
+            <th>Resource Type</th>
+            <th>Quantity</th>
+            <th>Total Points</th>
+          </tr>
+
+          <%= for resource <- @survivor.resource do %>
+              <tr>
+                <td><%= resource.resource_type %></td>
+                <td><%= resource.quantity%></td>
+                <td><%= resource.total_points%></td>
+              </tr>
+            <% end %>
+          <tr>
+
+            <td>
+              <%= label f, :by_exchange_resource %>
+              <%= select f, :by_exchange_resource, ["Fiji Water": "fiji_water", "Campbell Soup": "campbell_soup", "First Aid Pouch": "first_aid_pouch", "AK47": "ak47"] %>
+              <%= error_tag f, :by_exchange_resource %>
+            </td>
+            <td>
+              <%= label f, :by_exchange_quantity %>
+              <%= number_input f, :by_exchange_quantity, min: 0, max: 50, value: 0%>
+              <%= error_tag f, :by_exchange_quantity %>
+            </td>
+          </tr>
+      </table>
+    </div>
+
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+

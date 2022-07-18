@@ -1,0 +1,28 @@
+<%= form_for @changeset, @action, [multipart: true],fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :latitude , class: "control-label" %>
+  <%= text_input f, :latitude , class: "form-control" %>
+  <%= error_tag f, :latitude %>
+
+  <%= label f, :longitude, class: "control-label" %>
+  <%= text_input f, :longitude , class: "form-control" %>
+  <%= error_tag f, :longitude %>
+
+  <img src={@image} alt="Profile Picture" />
+
+  <div class="form-group">
+    <%= label f, :profile_photo, class: "control-label" %>
+    <%= file_input f, :profile_photo, class: "form-control" %>
+    <%= error_tag f, :profile_photo %>
+  </div>
+
+
+   <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

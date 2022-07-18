@@ -1,0 +1,36 @@
+<h1>ZombieApocalypseSurvival Home Page</h1>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap: 5%">
+
+     <div>
+      <p style="text-align:justify; font-size:20px;">
+           The world, as we know it, has fallen into an apocalyptic scenario. A disease is transforming human beings into violent creatures (a.k.a. Zombies)
+           You, the last survivor who knows how to code, will help the resistance by deploying a system to connect the remaining humans. This system will be
+           essential to detect new infections and share resources between the members.
+
+      </p>
+
+     </div>
+
+
+
+      <div>
+
+          <p style="text-align:justify; font-size:20px; font-weight:bold; font-style:italic; color:green">
+          If your a Admin then see the report Dashboard otherwise click on Survivor!!!
+          </p>
+
+         <div class="form-group">
+             <span><%= link "Survivor", to: Routes.resource_path(@conn, :new) %></span>
+         </div>
+
+         <div class="form-group">
+              <span><%= link "Admin", to: Routes.report_path(@conn, :report_dashboard) %></span>
+         </div>
+
+     </div>
+
+  </div>
+
+
+

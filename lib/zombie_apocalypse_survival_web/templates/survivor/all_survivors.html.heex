@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>Survivor Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for survivor <- @survivors do %>
+      <tr>
+        <td><%= survivor.name %></td>
+        <td><%= survivor.age %></td>
+        <td><%= survivor.gender %></td>
+      <td>
+        <% IO.inspect(survivor) %>
+        <span><%= link "Trade", to: Routes.resource_path(@conn, :show, survivor) %></span>
+        <span><%= link "Report", to: Routes.report_path(@conn, :get_reported, survivor) %></span>
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

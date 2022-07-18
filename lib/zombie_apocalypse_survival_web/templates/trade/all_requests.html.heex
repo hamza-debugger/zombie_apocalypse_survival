@@ -1,0 +1,22 @@
+
+<h2>Requests</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Notification</th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= for trade <- @trades do %>
+      <tr>
+        <td><p> <%= "#{trade.trade_to.name} by gender #{trade.trade_to.gender} has sent a resource exchange request they want to give #{trade.to_resource_type}
+        quantity #{trade.to_quantity} and in return they want #{trade.by_resource_type} quantity #{trade.by_quantity}" %></p></td>
+      <td>
+        <span><%= link "Accept", to: Routes.trade_path(@conn, :accept_request, trade) %></span>
+        <span><%= link "Reject", to: Routes.trade_path(@conn, :reject_request, trade) %></span>
+
+      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
