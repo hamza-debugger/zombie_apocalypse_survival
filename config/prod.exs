@@ -27,7 +27,7 @@ config :logger, level: :info
     config :zombie_apocalypse_survival, ZombieApocalypseSurvivalWeb.Endpoint,
       ...,
       url: [scheme: "https", host: "floating-spire-31322.herokuapp.com", port: 443],
-      force_ssl: [rewrite_on: [:x_forwarded_proto]],
+      force_ssl: [rewrite_on: [:x_forwarded_proto]]
       # https: [
       #   ...,
       #   port: 443,
