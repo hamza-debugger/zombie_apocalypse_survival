@@ -64,6 +64,12 @@ defmodule ZombieApocalypseSurvival.TradeManager do
 
   end
 
+  def get_trade_by_current_user(trade_id, current_id) do
+    Trade
+    |> where([t], t.trade_by_id == ^current_id and t.id == ^trade_id and t.status == :pending)
+    |> Repo.one
+  end
+
 
   def trade_with_resource(resource_type, id) do
       Trade

@@ -61,6 +61,7 @@ defmodule ZombieApocalypseSurvivalWeb.Router do
     post "/trade/:id", TradeController, :create
     get "/requests", TradeController, :show_requests
     get "/accept-request/:id", TradeController, :accept_request
+    get "/reject-request/:id", TradeController, :reject_request
     get "/reported/:id", ReportController, :get_reported
     get "/report", ReportController, :report_dashboard
 

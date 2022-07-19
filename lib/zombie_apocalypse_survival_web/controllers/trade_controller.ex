@@ -180,6 +180,23 @@ defmodule ZombieApocalypseSurvivalWeb.TradeController do
     end
   end
 
+  def reject_request(conn, %{"id" => id}) do
+    current_resource = Guardian.Plug.current_resource(conn)
+    case TradeManager.get_trade_by_current_user(id, current_resource.id) do
+      nil ->
+            conn
+            |> put_flash(:info, "Your trade has been cancelled!")
+            |> redirect(to: "/survivors")
+
+      trade ->  TradeManager.update_trade(trade, %{status: :reject})
+      conn
+      |> put_flash(:info, "Trade has been rejected")
+      |> redirect(to: "/survivors")
+    end
+
+
+  end
+
 
   def accept_check_availability(given_resource_type, given_quantity, survivor_id) do
     IO.inspect( given_resource_type,label: "given_resource_type")
