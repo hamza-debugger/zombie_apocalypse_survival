@@ -33,7 +33,8 @@ defmodule ZombieApocalypseSurvival.SurvivorManager.Survivor do
       :latitude,
       :longitude,
       :survivor_flag,
-      :is_admin
+      :is_admin,
+      # :profile_image
     ])
     |> cast_attachments(attrs, [:profile_image])
     |> validate_required([

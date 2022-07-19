@@ -29,16 +29,15 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     end
   end
 
-  def create(conn, %{"survivor" => %{"profile_photo" => %{filename: filename}, "email" => email} = params}) do
-    #  %{"profile_photo" => %{filename: filename}} = params
+  def create(conn, %{"survivor" => %{"profile_photo" => filename, "email" => email} = params}) do
     case SurvivorManager.get_survivor_by_email(email) do
      nil ->
-          params =
-              params
-              |> Map.put("profile_image", filename)
+          params = params
+                   |> Map.put("profile_image", filename)
+          IO.inspect(params, label: "Signup params")
 
-            case SurvivorManager.create_survivor(params) do
-              {:ok, %Survivor{} = survivor} ->
+            case SurvivorManager.create_survivor(params) |> IO.inspect(label: "Create params") do
+              {:ok, survivor} ->
                 create_location_log(%{
                   survivor_id: survivor.id,
                   latitude: params["latitude"],
@@ -73,6 +72,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
   end
 
   def profile_photo_upload(params, survivor) do
+    IO.inspect(survivor, label: "Profile Photo Upload")
     %{"profile_photo" => upload_plug} = params
     Avatar.store({upload_plug, survivor})
   end
