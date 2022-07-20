@@ -10,14 +10,12 @@ defmodule ZombieApocalypseSurvivalWeb.ReportController do
 
   def get_reported(conn, %{"id" => id} = params) do
     id = String.to_integer(id)
-    IO.inspect(id, label: "brooooooo_id")
     user = Guardian.Plug.current_resource(conn)
-    IO.inspect(user.id, label: "brooooooo_id")
 
-    if Bodyguard.permit(ZombieApocalypseSurvival.Policy, :survivor, user, params) |> IO.inspect(label: "Bodyguard") == :ok do
+    if Bodyguard.permit(ZombieApocalypseSurvival.Policy, :survivor, user, params)  == :ok do
 
     if !(user.id == id) do
-      case ReportManager.get_report_by(id) |> IO.inspect(label: "brooooooo") do
+      case ReportManager.get_report_by(id)  do
         [] ->
           ReportManager.create_report(%{report_to_id: user.id, report_by_id: id})
           conn

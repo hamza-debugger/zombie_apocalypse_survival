@@ -152,7 +152,7 @@ end
       nil ->
 
         Argon2.no_user_verify()
-        {:error, :invalid_credentials_or_you_are_infacted}
+        {:error, "Invalid credentials or May be you are infacted"}
 
       user ->
         if Argon2.verify_pass(plain_text_password, user.password) do

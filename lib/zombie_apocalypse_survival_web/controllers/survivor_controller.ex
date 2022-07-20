@@ -80,7 +80,6 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
   def index(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     if Bodyguard.permit(ZombieApocalypseSurvival.Policy, :survivor, user) |> IO.inspect(label: "Bodyguard") == :ok do
-      IO.inspect("=====Index========")
       render(conn, "all_survivors.html", survivors: list_survivors(), user: user)
     else
     conn
@@ -94,7 +93,6 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
 
   defp list_survivors do
     SurvivorManager.list_survivors()
-    |> IO.inspect(label: "list_survivors")
   end
 
   def edit(conn, _params) do

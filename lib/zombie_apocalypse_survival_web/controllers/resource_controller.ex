@@ -13,8 +13,7 @@ defmodule ZombieApocalypseSurvivalWeb.ResourceController do
     maybe_user = Guardian.Plug.current_resource(conn)
 
     if maybe_user do
-      case ResourceManager.get_resources_by_survivor_id(maybe_user.id)
-           |> IO.inspect(label: "get_survivor_id ==========") do
+      case ResourceManager.get_resources_by_survivor_id(maybe_user.id) do
         [] ->
           render(conn, "new_resource.html",
             changeset: changeset,
@@ -34,7 +33,6 @@ defmodule ZombieApocalypseSurvivalWeb.ResourceController do
     IO.inspect(current_resource, label: "bro")
 
     Enum.reduce(resources, %{}, fn resource, _acc ->
-      IO.inspect(resource, label: "==============dsd")
 
       case resource do
         {"ak47", quantity} ->
