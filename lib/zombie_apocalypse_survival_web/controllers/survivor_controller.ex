@@ -81,7 +81,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     user = Guardian.Plug.current_resource(conn)
     if Bodyguard.permit(ZombieApocalypseSurvival.Policy, :survivor, user) |> IO.inspect(label: "Bodyguard") == :ok do
       IO.inspect("=====Index========")
-      render(conn, "all_survivors.html", survivors: list_survivors())
+      render(conn, "all_survivors.html", survivors: list_survivors(), user: user)
     else
     conn
     |> put_status(:forbidden)

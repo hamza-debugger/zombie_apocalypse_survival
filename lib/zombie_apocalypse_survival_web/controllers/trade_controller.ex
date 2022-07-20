@@ -47,6 +47,7 @@ defmodule ZombieApocalypseSurvivalWeb.TradeController do
       |> put_flash(:error, "The Resource Quantity You Entered is not available. Kindly Check the availability Tables")
       |> redirect(to: "/resource/#{String.to_integer(id)}" , survivor: current_resource)
      end
+     
     else
       IO.inspect("norrrrrr")
       conn

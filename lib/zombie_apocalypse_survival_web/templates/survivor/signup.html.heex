@@ -1,4 +1,8 @@
-<h2>Sign Up Page</h2>
+
+<div style="display:flex;flex-direction:row; justify-content: space-between; align-items: baseline;">
+  <h2>Sign Up Page</h2>
+  <%= link "Login", to: Routes.auth_path(@conn, :new) %>
+</div>
 
 <%= form_for @changeset, @action, [multipart: true],fn f -> %>
 

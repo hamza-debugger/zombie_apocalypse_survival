@@ -1,4 +1,12 @@
 <table>
+  <div>
+   <h2> <%= "You logged in as #{@user.name}" %> </h2>
+  </div>
+  <div style="display:flex;flex-direction:row; justify-content: space-between; align-items: baseline;">
+  <span><%= link "Logout", to: Routes.auth_path(@conn, :logout) %></span>
+  <span><%= link "Check Trade Requests", to: Routes.trade_path(@conn, :show_requests) %></span>
+  <span ><%= link "Update Profile", to: Routes.survivor_path(@conn, :edit) %></span>
+  </div>
   <thead>
     <tr>
       <th>Survivor Name</th>
