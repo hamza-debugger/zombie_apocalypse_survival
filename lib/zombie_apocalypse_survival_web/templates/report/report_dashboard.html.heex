@@ -1,5 +1,7 @@
+<div style="display:flex;flex-direction:row; justify-content: space-between; align-items: baseline;">
 <h2 class= "heading">Report DashBoard</h2>
-
+ <%= link "Logout", to: Routes.auth_path(@conn, :logout) %>
+</div>
 <p class= "control-label heading">Non Infacted Survivor</p>
 <div class="container">
   <div class="skills ninfacted"><%= @survivor.non_infacted%>%</div>
@@ -14,22 +16,22 @@
 
 <p class= "control-label heading">Fiji Water</p>
 <div class="container">
-  <div class="skills fiji"><%= @survivor.fiji%>%</div>
+  <div class="skills fiji"><%= @survivor.fiji%>$</div>
 </div>
 
 <p class= "control-l6308abel heading">Campbell Soup</p>
 <div class="container">
-  <div class="skills soup"><%= @survivor.soup%>%</div>
+  <div class="skills soup"><%= @survivor.soup%>$</div>
 </div>
 
 <p class= "control-label heading">First Aid Pouch</p>
 <div class="container">
-  <div class="skills pouch"><%= @survivor.pouch%>%</div>
+  <div class="skills pouch"><%= @survivor.pouch%>$</div>
 </div>
 
 <p class= "control-label heading">AK47</p>
 <div class="container">
-  <div class="skills ak47"><%= @survivor.ak47%>%</div>
+  <div class="skills ak47"><%= @survivor.ak47%>$</div>
 </div>
 
 
@@ -53,12 +55,12 @@
   margin-top: 10px;
 }
 
-.ninfacted { width: <%= @survivor.non_infacted*5%>%; background-color: #04AA6D;} /* Green */
-.infacted {width: <%= @survivor.infacted*5%>%; background-color: #2196F3;} /* Blue */
-.fiji {width: <%= @survivor.fiji*2%>%; background-color: #f44336;} /* Red */
-.pouch {width: <%= @survivor.pouch*2%>%; background-color: #fca103;} /* Dark Grey */
-.soup {width: <%= @survivor.soup*2%>%; background-color: #03adfc;}
-.ak47 {width: <%= @survivor.ak47*2%>%; background-color: #fc03e3;}
+.ninfacted { width: <%= @survivor.non_infacted%>%; background-color: #04AA6D;} /* Green */
+.infacted {width: <%= @survivor.infacted%>%; background-color: #2196F3;} /* Blue */
+.fiji {width: <%= @survivor.fiji%>%; background-color: #f44336;} /* Red */
+.pouch {width: <%= @survivor.pouch%>%; background-color: #fca103;} /* Dark Grey */
+.soup {width: <%= @survivor.soup%>%; background-color: #03adfc;}
+.ak47 {width: <%= @survivor.ak47%>%; background-color: #fc03e3;}
 
 
 </style>

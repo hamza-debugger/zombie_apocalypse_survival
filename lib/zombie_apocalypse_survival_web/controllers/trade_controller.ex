@@ -170,7 +170,7 @@ defmodule ZombieApocalypseSurvivalWeb.TradeController do
     case TradeManager.get_trade!(String.to_integer(id)) do
       trade = %Trade{} ->  if accept_check_availability(trade.to_resource_type, trade.to_quantity, current_resource.id) and
                                      accept_check_availability(trade.by_resource_type, trade.by_quantity, trade.trade_by_id) do
-                                  exchange_resources_done(conn, trade)
+                                     exchange_resources_done(conn, trade)
                             else
                                   conn
                                   |> put_flash(:error, "The Resource Quantity You Entered is not available.")

@@ -65,16 +65,17 @@ end
 def report_dashboard(conn, params) do
     user = Guardian.Plug.current_resource(conn)
    if Bodyguard.permit(ZombieApocalypseSurvival.Policy, :admin, user, params) |> IO.inspect(label: "Bodyguard") == :ok do
+       IO.inspect(SurvivorManager.survivor_count, label: "Count")
+       IO.inspect(SurvivorManager.infacted_survivor, label: "infacted")
 
       infacted = average(SurvivorManager.infacted_survivor, SurvivorManager.survivor_count)
       non_infacted = average(SurvivorManager.non_infacted_survivor, SurvivorManager.survivor_count)
-      fiji = average(ResourceManager.sum_of_quantity("fiji_water"), ResourceManager.resource_count("fiji_water"))
-      soup = average(ResourceManager.sum_of_quantity("campbell_soup"), ResourceManager.resource_count("campbell_soup"))
-      pouch = average(ResourceManager.sum_of_quantity("first_aid_pouch"), ResourceManager.resource_count("first_aid_pouch"))
-      ak47 = average(ResourceManager.sum_of_quantity("ak47"), ResourceManager.resource_count("fiji_water"))
+      fiji = avg_resource_count(ResourceManager.sum_of_quantity("fiji_water"), ResourceManager.resource_count("fiji_water"))
+      soup = avg_resource_count(ResourceManager.sum_of_quantity("campbell_soup"), ResourceManager.resource_count("campbell_soup"))
+      pouch = avg_resource_count(ResourceManager.sum_of_quantity("first_aid_pouch"), ResourceManager.resource_count("first_aid_pouch"))
+      ak47 = avg_resource_count(ResourceManager.sum_of_quantity("ak47"), ResourceManager.resource_count("fiji_water"))
 
       survivor = %{infacted: infacted, non_infacted: non_infacted, fiji: fiji, soup: soup, pouch: pouch, ak47: ak47}
-      IO.inspect(survivor, label: "Report Dashboard")
       render(conn, "report_dashboard.html", survivor: survivor)
 
    else
@@ -87,6 +88,14 @@ def report_dashboard(conn, params) do
 end
 
 def average(value, total) do
+  if total == 0 do
+    1
+  else
+    (value/total)*100|>ceil()
+  end
+end
+
+def avg_resource_count(value, total) do
   if total == 0 do
     1
   else
