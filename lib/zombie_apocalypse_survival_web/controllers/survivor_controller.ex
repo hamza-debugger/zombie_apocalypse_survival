@@ -22,6 +22,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     if maybe_user do
       redirect(conn, to: "/resource")
     else
+      IO.inspect(changeset)
       render(conn, "signup.html",
         changeset: changeset,
         action: Routes.survivor_path(conn, :create)
@@ -29,14 +30,14 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     end
   end
 
-  def create(conn, %{"survivor" => %{"profile_photo" => filename, "email" => email} = params}) do
-    case SurvivorManager.get_survivor_by_email(email) do
+  def create(conn, %{"survivor" => params}) do
+    case SurvivorManager.get_survivor_by_email(params["email"]) do
      nil ->
           params = params
-                   |> Map.put("profile_image", filename)
+                   |> Map.put("profile_image", params["profile_photo"])
           IO.inspect(params, label: "Signup params")
 
-            case SurvivorManager.create_survivor(params) |> IO.inspect(label: "Create params") do
+            case SurvivorManager.create_survivor(params) do
               {:ok, survivor} ->
                 create_location_log(%{
                   survivor_id: survivor.id,
@@ -48,10 +49,13 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
                 AuthController.login_reply({:ok, survivor}, conn)
 
               {:error, changeset} ->
-                IO.inspect(changeset)
+                # IO.inspect(changeset)
+                # conn
+                # |> put_flash(:error, "Some Thing Went Wrong")
+                # |> new(%{})
                 conn
-                |> put_flash(:error, "Some Thing Went Wrong")
-                |> new(%{})
+                 |> render("signup.html", changeset: changeset, action: Routes.survivor_path(conn, :create))
+
             end
      _survivor ->
         conn
@@ -61,11 +65,13 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
      end
   end
 
-  def create(conn, _params) do
-    conn
-    |> put_flash(:error, "All Fields Are Required")
-    |> new(%{})
-  end
+  # def create(conn, params) do
+  #   case SurvivorManager.create_survivor(params) do
+  #     {:error, %Ecto.Changeset{} = changeset} ->
+  #       conn
+  #       |> render("signup.html", changeset: changeset, action: Routes.survivor_path(conn, :create))
+  #   end
+  # end
 
   def create_location_log(params) do
     Survivor_loc_log.create_survivor_loc_log(params)
@@ -108,7 +114,8 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     )
   end
 
-  def update(conn, %{"survivor" => %{"profile_photo_" => _image} = survivor_params}) do
+  def update(conn, %{"survivor" => %{"profile_photo" => _image} = survivor_params}) do
+    IO.inspect(survivor_params, label: "survivor_params_profile")
     survivor = Guardian.Plug.current_resource(conn)
     profile_photo_upload(survivor_params, survivor)
 
@@ -119,13 +126,14 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
         |> redirect(to: Routes.survivor_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "update_survivor.html", survivor: survivor, changeset: changeset)
+        render(conn, "update_survivor.html", survivor: survivor, changeset: changeset, action: Routes.survivor_path(conn, :update), image: Avatar.url({survivor.profile_image, survivor}, :thumb))
     end
   end
 
   def update(conn, %{
         "survivor" => %{"latitude" => _latitude, "longitude" => _longitude} = survivor_params
       }) do
+      IO.inspect(survivor_params, label: "survivor_params")
     survivor = Guardian.Plug.current_resource(conn)
 
     case SurvivorManager.update_survivor(survivor, survivor_params) do
@@ -135,7 +143,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
         |> redirect(to: Routes.survivor_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "update_survivor.html", survivor: survivor, changeset: changeset)
+        render(conn, "update_survivor.html", survivor: survivor, changeset: changeset, action: Routes.survivor_path(conn, :update), image: Avatar.url({survivor.profile_image, survivor}, :thumb))
     end
   end
 
