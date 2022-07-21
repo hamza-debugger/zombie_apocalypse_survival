@@ -33,8 +33,8 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
   def create(conn, %{"survivor" => params}) do
     case SurvivorManager.get_survivor_by_email(params["email"]) do
      nil ->
-          params = params
-                   |> Map.put("profile_image", params["profile_photo"])
+          # params = params
+          #          |> Map.put("profile_image", params["profile_photo"])
           IO.inspect(params, label: "Signup params")
 
             case SurvivorManager.create_survivor(params) do
@@ -79,7 +79,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
 
   def profile_photo_upload(params, survivor) do
     IO.inspect(survivor, label: "Profile Photo Upload")
-    %{"profile_photo" => upload_plug} = params
+    %{"profile_image" => upload_plug} = params
     Avatar.store({upload_plug, survivor})
   end
 
@@ -114,7 +114,7 @@ defmodule ZombieApocalypseSurvivalWeb.SurvivorController do
     )
   end
 
-  def update(conn, %{"survivor" => %{"profile_photo" => _image} = survivor_params}) do
+  def update(conn, %{"survivor" => %{"profile_image" => _image} = survivor_params}) do
     IO.inspect(survivor_params, label: "survivor_params_profile")
     survivor = Guardian.Plug.current_resource(conn)
     profile_photo_upload(survivor_params, survivor)
