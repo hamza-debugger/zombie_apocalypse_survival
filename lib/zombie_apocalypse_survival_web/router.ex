@@ -43,6 +43,7 @@ defmodule ZombieApocalypseSurvivalWeb.Router do
 
     get "/", SurvivorController, :new
     post "/signup", SurvivorController, :create
+
     get "/login", AuthController, :new
     post "/login", AuthController, :login
     get "/logout", AuthController, :logout
@@ -51,19 +52,22 @@ defmodule ZombieApocalypseSurvivalWeb.Router do
   scope "/", ZombieApocalypseSurvivalWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
+    get "/survivors", SurvivorController, :index
     get "/home-page", SurvivorController, :home_page
+    get "/survivor/edit", SurvivorController, :edit
+    put "/survivor/update", SurvivorController, :update
+
     get "/resource", ResourceController, :new
     post "/resource", ResourceController, :create
     get "/resource/:id", ResourceController, :show
-    get "/survivor/edit", SurvivorController, :edit
-    put "/survivor/update", SurvivorController, :update
-    get "/survivors", SurvivorController, :index
+
     post "/trade/:id", TradeController, :create
     get "/requests", TradeController, :show_requests
     get "/accept-request/:id", TradeController, :accept_request
     get "/reject-request/:id", TradeController, :reject_request
-    get "/reported/:id", ReportController, :get_reported
+
     get "/report", ReportController, :report_dashboard
+    get "/reported/:id", ReportController, :get_reported
 
   end
 
